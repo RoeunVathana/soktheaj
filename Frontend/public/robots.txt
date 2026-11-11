@@ -1,0 +1,7 @@
+# robots.txt for Sothea Chhum Portfolio
+# https://sotheachhum.com
+
+User-agent: *
+Allow: /
+
+Sitemap: https://sotheachhum.com/sitemap.xml

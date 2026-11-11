@@ -1,0 +1,26 @@
+# បិទមិនឱ្យឡើង vendor និង node_modules
+**/vendor/
+**/node_modules/
+
+# បិទ production build files
+**/dist/
+**/build/
+
+# បិទ environment & secret keys
+**/.env
+**/.env.*
+!**/.env.example
+
+# Cache & logs របស់ Laravel
+Backend/storage/*.key
+Backend/storage/framework/cache/*
+Backend/storage/framework/sessions/*
+Backend/storage/framework/views/*
+Backend/storage/logs/*
+Backend/.phpunit.result.cache
+
+# System & Editor files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

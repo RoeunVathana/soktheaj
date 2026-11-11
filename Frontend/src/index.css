@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Khmer OS Muol', 'Inter', sans-serif;
+}
+
+/* Scrollbar - Dark Mode */
+.dark ::-webkit-scrollbar {
+  width: 8px;
+}
+.dark ::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #6d28d9;
+  border-radius: 10px;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #7c3aed;
+}
+
+/* Scrollbar - Light Mode */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #e5e7eb;
+}
+::-webkit-scrollbar-thumb {
+  background: #9ca3af;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Animated chasing gradient border for portrait frame */
+@keyframes chaseGradient {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.portrait-border-anim {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.portrait-border-anim::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent,
+    #06b6d4,
+    #a855f7,
+    #eab308,
+    transparent 25%,
+    transparent 50%,
+    #06b6d4 50%,
+    #a855f7 60%,
+    #eab308 70%,
+    transparent 75%,
+    transparent 100%
+  );
+  animation: chaseGradient 3s linear infinite;
+  z-index: 0;
+}
+
+.portrait-border-anim > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+/* Smooth transition for all themed elements */
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke, box-shadow;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Exclude transitions from elements that shouldn't animate */
+.no-theme-transition,
+.no-theme-transition *,
+.no-theme-transition::before,
+.no-theme-transition::after {
+  transition: none !important;
+}
+
+/* Toast Animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
