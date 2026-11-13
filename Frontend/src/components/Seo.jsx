@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 
-const SITE_URL = 'https://sotheachhum.com';
-const DEFAULT_IMAGE = `${SITE_URL}/og-image.jpg`;
+const SITE_URL = 'https://soktheajr.com';
+const DEFAULT_IMAGE = `${SITE_URL}/site-logo.png`;
 const THEME_COLOR = '#0a0a1a';
 
 const Seo = ({
@@ -43,6 +43,7 @@ const Seo = ({
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={fullDescription} />
       <meta property="og:image" content={image} />
+      <meta property="og:image:alt" content="Sokthea portfolio logo" />
       <meta property="og:image:width" content="1200" />
       <meta property="og:image:height" content="630" />
       <meta property="og:locale" content="en_US" />

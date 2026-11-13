@@ -36,7 +36,7 @@ import AdminAchievements from './pages/admin/AdminAchievements';
 import ProtectedRoute from './components/ProtectedRoute';
 import Seo from './components/Seo';
 
-const SITE_URL = 'https://sotheajrportfolio.com';
+const SITE_URL = 'https://soktheajr.com';
 
 const HomePage = ({ onOpenAuth, onOpenSecurity, onOpenProfile }) => (
   <>
@@ -96,7 +96,7 @@ const App = () => {
     '@type': 'Person',
     name: 'Sothea Chhum',
     url: SITE_URL,
-    image: `${SITE_URL}/og-image.jpg`,
+    image: `${SITE_URL}/site-logo.png`,
     jobTitle: 'Full Stack Developer',
     description:
       'Passionate Full Stack Developer specializing in React.js, Laravel, Node.js, Express.js, MySQL, MongoDB, Tailwind CSS, Bootstrap, and REST APIs.',
@@ -123,7 +123,6 @@ const App = () => {
       'Full Stack Development',
       'Web Development',
     ],
-    email: 'sothea@example.com',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'Cambodia',
