@@ -22,6 +22,17 @@ the connected services:
 - Frontend URL: <https://soktheaj-production.up.railway.app>
 - API base URL: <https://backend-production-f646a509.up.railway.app/api/v1>
 
+The Railway backend service uses the Composer deploy script as its pre-deploy
+step:
+
+```text
+composer run deploy
+```
+
+This runs `php artisan migrate --force` and then `php artisan db:seed --force`.
+The production seeder only populates an empty database, so later deployments
+do not duplicate existing users or portfolio records.
+
 In Railway, enable **Wait for CI** on both the frontend and backend production
 services. This makes the native Railway deployment wait for the GitHub Actions
 workflow to finish successfully.
