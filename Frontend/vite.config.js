@@ -5,6 +5,10 @@ export default defineConfig({
   plugins: [react()],
   preview: {
     host: '0.0.0.0',
-    allowedHosts: ['soktheaj-production.up.railway.app'],
+    allowedHosts: [
+      'soktheaj-production.up.railway.app',
+      'soktheajr.com',
+      'www.soktheajr.com',
+    ],
   },
 })
