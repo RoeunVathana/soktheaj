@@ -52,9 +52,12 @@ return [
     | Never use '*' in production with credentials.
     |
     */
-    'allowed_origins' => [
+    'allowed_origins' => array_values(array_unique(array_filter([
         env('FRONTEND_URL', 'http://localhost:3000'),
-    ],
+        // Keep the Railway production frontend allowed even if Laravel's
+        // config is cached before Railway injects service variables.
+        'https://soktheaj-production.up.railway.app',
+    ]))),
 
     /*
     |--------------------------------------------------------------------------
