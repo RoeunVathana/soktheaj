@@ -57,6 +57,8 @@ return [
         // Keep the Railway production frontend allowed even if Laravel's
         // config is cached before Railway injects service variables.
         'https://soktheaj-production.up.railway.app',
+        'https://soktheajr.com',
+        'https://www.soktheajr.com',
     ]))),
 
     /*
