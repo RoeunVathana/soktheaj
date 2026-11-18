@@ -17,7 +17,7 @@ use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
  *
  * Security Rationale:
  *  - The refresh_token is httpOnly (not accessible via JavaScript).
- *  - It's SameSite=Strict (protected against CSRF).
+ *  - Its SameSite policy is set by the auth service for the deployment mode.
  *  - It's a random 80-character string (unguessable).
  *  - Excluding it from encryption does NOT weaken security because
  *    the cookie attributes (httpOnly, SameSite, Secure) provide the

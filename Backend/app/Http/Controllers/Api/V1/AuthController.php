@@ -15,14 +15,15 @@ use Illuminate\Http\Request;
  * Implements a Defense-in-Depth authentication strategy:
  *
  * 1. Short-lived Access Token (15 min) → returned in JSON body only.
- * 2. Long-lived Refresh Token (7 days) → stored in httpOnly, SameSite=Strict cookie.
+ * 2. Long-lived Refresh Token (7 days) → stored in an httpOnly cookie.
  *    This prevents XSS from stealing the refresh token and CSRF from using it.
  * 3. Refresh endpoint reads the httpOnly cookie exclusively.
  * 4. Logout revokes ALL tokens and clears the cookie.
  *
  * Security Rationale:
  *  - Access tokens in memory (React state) → not persisted to storage, XSS-resistant.
- *  - Refresh tokens in httpOnly cookies → JS cannot read them, CSRF protected by SameSite.
+ *  - Refresh tokens in httpOnly cookies → JS cannot read them; production uses
+ *    SameSite=None + Secure because the SPA and API are on different domains.
  *  - Rolling refresh tokens → each refresh issues a new refresh token, limiting reuse.
  */
 class AuthController extends Controller

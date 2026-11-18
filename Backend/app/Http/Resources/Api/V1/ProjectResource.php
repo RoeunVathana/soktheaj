@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Storage;
 
 class ProjectResource extends JsonResource
 {
+    private function imageUrl(?string $path): ?string
+    {
+        if (!$path) {
+            return null;
+        }
+
+        // Seeded projects may already contain a remote URL. Do not turn it
+        // into an invalid `/storage/https://...` path.
+        if (filter_var($path, FILTER_VALIDATE_URL) || str_starts_with($path, '/storage/')) {
+            return $path;
+        }
+
+        return Storage::url($path);
+    }
+
     public function toArray(Request $request): array
     {
         return [
@@ -15,7 +30,7 @@ class ProjectResource extends JsonResource
             'title' => $this->title,
             'slug' => $this->slug,
             'description' => $this->description,
-            'thumbnail' => $this->thumbnail ? Storage::url($this->thumbnail) : null,
+            'thumbnail' => $this->imageUrl($this->thumbnail),
             'demo_link' => $this->demo_link,
             'github_link' => $this->github_link,
             'file_path' => $this->file_path,
