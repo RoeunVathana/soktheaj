@@ -8,7 +8,11 @@ export const getImageUrl = (path) => {
   if (!path) return null;
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
 
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
+  // VITE_API_URL is the single source of truth for the deployed API. The
+  // previous VITE_API_BASE_URL name was never configured on Railway, so the
+  // production bundle fell back to localhost for every relative image path.
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+  const baseUrl = apiUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '');
   // Remove leading slashes or redundant storage/ prefixes if present
   const cleanPath = path.replace(/^\/?(storage\/|public\/)?/, '');
   return `${baseUrl}/storage/${cleanPath}`;
@@ -33,7 +37,8 @@ export const getAchievementThumbnail = (item) => {
   const filename = imageValue.split('/').pop().split('\\').pop();
 
   // Construct the full URL using Laravel's public storage link
-  const baseUrl = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+  const baseUrl = apiUrl.replace(/\/api\/v1\/?$/, '').replace(/\/$/, '');
   return `${baseUrl}/storage/achievements/${filename}`;
 };
 

@@ -357,12 +357,13 @@ class AuthService implements AuthServiceInterface
      *
      * Security:
      *  - Access Token: 15-minute TTL, returned in JSON body only.
-     *  - Refresh Token: 7-day TTL, stored in httpOnly cookie with SameSite=Strict.
+     *  - Refresh Token: 7-day TTL, stored in an httpOnly cookie.
      *  - Rolling refresh: old refresh tokens are revoked on each refresh.
      *
      * The refresh token cookie is configured with:
      *  - httpOnly: true  → JavaScript cannot read it (XSS protection).
-     *  - sameSite: 'strict' → Cookie is not sent on cross-site requests (CSRF protection).
+     *  - sameSite: 'none' in production → Required because the SPA and API use
+     *    different domains; the cookie remains httpOnly and Secure.
      *  - secure: true → Only sent over HTTPS (handled automatically in production).
      *  - path: '/' → Available to all endpoints.
      */
@@ -391,7 +392,8 @@ class AuthService implements AuthServiceInterface
         // ── Attach the refresh token as an httpOnly cookie ──
         // httpOnly=true: Prevents XSS from reading the token.
         // SameSite policy:
-        //   - Production (HTTPS): 'None' + Secure=true (works with cross-origin requests)
+        //   - Production (HTTPS): 'None' + Secure=true (works with the SPA on
+        //     soktheajr.com calling the API on Railway)
         //   - Local (HTTP): 'Lax' + Secure=false (Chrome blocks SameSite=None without Secure)
         // path='/': Available to all endpoints.
         $isProduction = config('app.env') === 'production' || request()->secure();
@@ -405,7 +407,7 @@ class AuthService implements AuthServiceInterface
             $isProduction,                      // secure (HTTPS only in production)
             true,                               // httpOnly (not accessible via JavaScript)
             false,                              // raw
-            'Strict'                            // SameSite = Strict for CSRF protection
+            $isProduction ? 'None' : 'Lax'       // Cross-site SPA/API in production
         ));
 
         return $response;

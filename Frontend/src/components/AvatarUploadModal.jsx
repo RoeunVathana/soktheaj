@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { X, Upload, Trash2, Image as ImageIcon } from 'lucide-react';
+import api from '../services/api';
 
 const AvatarUploadModal = ({ isOpen, onClose, onSuccess }) => {
   const [files, setFiles] = useState([]);
@@ -46,9 +46,9 @@ const AvatarUploadModal = ({ isOpen, onClose, onSuccess }) => {
     });
 
     try {
-      const response = await axios.post('/api/v1/auth/avatar/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      // Use the configured API client so the request goes to the backend and
+      // receives the current Bearer token/refresh-cookie handling.
+      const response = await api.post('/auth/avatar/upload', formData);
       
       onSuccess(response.data.avatars);
       onClose();
